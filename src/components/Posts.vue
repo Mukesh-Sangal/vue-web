@@ -3,41 +3,11 @@
     <h1>{{Posts}}</h1>
     <div class="posts">
       <div class="post_body">
-        <ul v-for="post in posts" id="postid" :key="post.id">
+        <ul v-for="post in posts">
           <li><span>Id:</span>{{post.id}}</li>
           <li><span>Title:</span>{{post.title}}</li>
           <li><span>Body:</span>{{post.body}}</li>
-           <b-card no-body class="mb-1">
-          <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block href="#" v-b-toggle.accordion-1 variant="info">User Posts Comment</b-button>
-          </b-card-header>
-          <b-collapse id="accordion-1" v-model="visible" visible accordion="my-accordion" role="tabpanel">
-            <b-card-body>
-              <div v-for="comment in comments">
-              <ul>
-              <li>
-                <span id="accordian">Id:</span>
-                  <b-card-text>
-                  {{comment.id}}
-                  </b-card-text>
-                </li>
-                <li>
-                <span id="accordian">Email:</span>
-                  <b-card-text>
-                  {{comment.email}}
-                  </b-card-text>
-                </li>
-                <li>
-                <span id="accordian">Name:</span>
-                  <b-card-text>
-                  {{comment.name}}
-                  </b-card-text>
-                </li>
-              </ul>
-              </div>
-            </b-card-body>
-          </b-collapse>
-        </b-card>
+          <b-link @click="navigate(post)">Go to this post Comments</b-link>
         </ul>
       </div>
     </div>
@@ -59,27 +29,28 @@ export default {
     	Posts: 'Welcome to Your Vue.js userposts',
     	name:'Mukesh',
       posts:[],
-      key:'',
       visible:false,
       comments:[],
-      cmnts:[]
     }
 	},
-  mounted: function(el){
+  mounted: function(){
     Vue.axios.get('https://jsonplaceholder.typicode.com/posts?userId='+localStorage.user_id)
-    .then(response =>{
-       var posts= response.data
-       this.posts= response.data 
-      for(let i=0; i<posts.length; i++){
-        let arr= posts[i].id
-        console.log(arr,'hii');
-          
-      }
+    .then(response => {
+        this.posts = response.data
+        var posts= response.data
 
     })
-    
-  }
-} 
+  },
+  methods:{
+    navigate: function(val){
+      // alert(val.id)
+     var postId = val.id;
+     localStorage.post_id= postId
+      // alert(localStorage.post_id);
+        router.push({path : 'Comments'})
+    }
+  } 
+}
 
 
 </script>
@@ -92,7 +63,7 @@ div#app {0
 h1, .h1 {
     font-size: 2.5rem;
     color: aliceblue;
-    margin-top:65px;
+   margin-top:80px;
 }
 .Posts {
     display: flex;
@@ -123,6 +94,11 @@ ul {
 li {
     display: flex;
 }
+a {
+  text-align: center;
+  margin-top: 10px;
+  text-decoration: none
+}
 span {
     font-weight: 600;
 }
@@ -134,5 +110,13 @@ span#accordian {
 }
 .card.mb-1 {
     margin-top: 25px;
+}
+input#postId {
+    width: 100%;
+}
+input#postId {
+    background-color: #17a2b8;
+    border: none;
+    color:white;
 }
 </style>

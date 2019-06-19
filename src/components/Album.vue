@@ -6,10 +6,9 @@
 				<li><span><b>Id</b>: </span>{{album.id}}</li>
 				<li><span><b>UserId</b>:</span>{{album.userId}}</li>
 				<li><span><b>Title</b>: </span>{{album.title}}</li>
+        <b-link @click="navigate(album)">Go to User album Photos</b-link>
 			</ul>
 		</div>
-		<b-link @click="navigate">Go to User Photos</b-link>
-		<router-view/>
 	</div>
 </template>
 <script>
@@ -20,22 +19,25 @@ export default {
   data() {
     return {
       Album: 'Welcome to user Albums',
-      albums:[]
+      albums:[],
+      photos:[]
     }
   },
-  mounted : function(i){
+  mounted : function(){
   	Vue.axios.get('https://jsonplaceholder.typicode.com/albums?userId='+localStorage.user_id)
 		.then(response => 
 		{
-    delete localStorage.user_id
-		localStorage.album_id=response.data[0].id
 	   this.albums = response.data 
 		})
   },
   methods:{
-  	navigate : function(){
-  	 router.push({path: 'Photos'})
-  	}
+  	 navigate: function(val){
+      // alert(val.id)
+     var albumId = val.id;
+     localStorage.album_id= albumId
+      // alert(localStorage.album_id);
+        router.push({path : 'Photos'})
+    }
   }
 }
 </script>
@@ -50,10 +52,10 @@ export default {
 h1, .h1 {
     font-size: 2.5rem;
     color: aliceblue;
-    margin-top:55px;
+   margin-top:70px;
 }
 .User-Albums {
-    width: 35%;
+    width: 44%;
     margin: 00 auto;
 }
 ul {
@@ -62,5 +64,8 @@ ul {
 li {
     color: aliceblue;
     list-style-type: none;
+}
+p.card-text {
+    color: black;
 }
 </style>

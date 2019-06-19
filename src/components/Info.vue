@@ -38,7 +38,7 @@ export default{
 		}
 	},
 	mounted: function(){
-		Vue.axios.get('https://jsonplaceholder.typicode.com/users?id='+localStorage.user_id)
+		Vue.axios.get('https://jsonplaceholder.typicode.com/users?id='+localStorage.getItem('id'))
 		.then(response =>{
 			 this.infos=response.data
 		}) 
@@ -65,7 +65,7 @@ export default{
 h1, .h1 {
     font-size: 2.5rem;
     color: aliceblue;
-    margin-top:65px;
+    margin-top:80px;
 }
 .Info {
     display: flex;

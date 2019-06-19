@@ -9,8 +9,7 @@
 			</ul>
 		</div>
 		<b-link @click="navigate">Go to User Album</b-link>
-		<router-view/>
-  </div>
+  </div>  
 </template>
 <script>
   import router from '../router'
@@ -26,15 +25,14 @@ export default {
     return {
       Comment: 'Welcome to User Comment Page',
       comments:[],
-      posts:[]
     }
   },
   mounted : function(){
   	Vue.axios.get('https://jsonplaceholder.typicode.com/comments?postId='+localStorage.post_id)
 		.then(response => 
 		{
-		console.log(localStorage.post_id)
-	   this.comments = response.data
+      this.comments = response.data
+      // console.log(localStorage.post_id);
 		})
   },
   methods:{
@@ -42,7 +40,7 @@ export default {
   	router.push({path:'album'})
   	}
   }
-}
+}     
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
@@ -59,7 +57,7 @@ export default {
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-image: url('../assets/commnt.png');
+    background-image: url('../assets/comments.jpg');
     font-family: Montserrat;
 		background-repeat: no-repeat;
 		height: 100%;
@@ -68,7 +66,7 @@ export default {
 h1, .h1 {
     font-size: 2.5rem;
     color: aliceblue;
-    margin-top:65px;
+    margin-top:80px;
 }
 li {
     color: aliceblue;

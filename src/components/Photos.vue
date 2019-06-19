@@ -3,10 +3,10 @@
     <h1>{{Photos}}</h1>
     <div class="User-Photos">
     	<ul v-for="photo in photos">
-    		<li><span><b>Title: </b></span>{{photo.title}}</li>
-    		<li><span><b>Albumid: </b></span>{{photo.albumId}}</li>
-    		<li><span>Url: </span><a v-bind:href="''"><img v-bind:src="''">{{ photo.url }}</a></li>
-    		<li><span>Thumbnail Url: </span><a v-bind:href="''">{{ photo.thumbnailUrl }}</a></li>
+    		<li><span class="photos"><b>Title:&nbsp</b>{{photo.title}} </span></li>
+    		<li><span class="photos"><b>Albumid:&nbsp</b>{{photo.albumId}}</span></li>
+        <li><span class="photos"><b>Thumbnail Url:&nbsp</b><img v-bind:src="photo.thumbnailUrl" fluid alt="Fluid image"></a></span></li>
+    		<li><span class="photos" id="image"><b>Url:&nbsp</b> </span><img v-bind:src="photo.url"></a></span></li>
     	</ul>
     </div>
     <router-view/>
@@ -28,15 +28,15 @@ export default {
   	Vue.axios.get('https://jsonplaceholder.typicode.com/photos?albumId='+localStorage.album_id)
 		.then((response) => 
 		{
-		delete localStorage.album_id
-	   this.photos = response.data 
+	   this.photos = response.data
+      console.log(localStorage.album_id) 
 		})
   },
 }
 </script>
 <style scoped>
-.Album {
-    background-image: url(../assets/album.jpg);
+.Photos {
+    background-image: url('../assets/po.jpg');
     font-family: Montserrat;
     background-repeat: no-repeat;
     height: 100%;
@@ -44,18 +44,27 @@ export default {
 }
 h1, .h1 {
     font-size: 2.5rem;
-    color: aliceblue;
-    margin-top:55px;
+    color: #f7f3f3;
+    margin-top:70px;
 }
-.User-Albums {
-    width: 35%;
+.User-Photos {
+    width: 55%;
     margin: 00 auto;
+}
+img {
+    vertical-align: middle;
+    border-style: none;
+    width: 35%;
+}
+span#image {
+    margin: 00 00 00 81px;
 }
 ul {
     text-align: -webkit-auto;
 }
 li {
-    color: aliceblue;
+    color:#f7f3f3;
     list-style-type: none;
+    margin: 00 00 15px 00;
 }
 </style>

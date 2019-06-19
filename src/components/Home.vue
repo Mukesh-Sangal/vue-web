@@ -6,7 +6,8 @@
        <div class="col-lg-5 col-sm-5 col-md-5" id="input_type">
           <b-form-input v-model="username" placeholder="Enter your name" id="myid" required></b-form-input> 
           <p>{{error}}</p>
-          <b-button variant="info" type="submit">Login</b-button>
+          <b-button variant="info" type="submit" id="button1(
+          username)">Login</b-button>
       </div>
     </form>
 
@@ -33,7 +34,8 @@ export default {
          console.log(user);
         if(user.length == 1)
           {
-            localStorage.user_id = user[0].id
+            var userId = user[0].id
+            localStorage.setItem('id','value');
             router.push({ path: 'Info'})
           }
           else{
