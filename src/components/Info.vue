@@ -38,7 +38,7 @@ export default{
 		}
 	},
 	mounted: function(){
-		Vue.axios.get('https://jsonplaceholder.typicode.com/users?id='+localStorage.getItem('id'))
+		Vue.axios.get('https://jsonplaceholder.typicode.com/users?id='+localStorage.user_id)
 		.then(response =>{
 			 this.infos=response.data
 		}) 

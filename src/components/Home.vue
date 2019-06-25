@@ -35,7 +35,7 @@ export default {
         if(user.length == 1)
           {
             var userId = user[0].id
-            localStorage.setItem('id','value');
+            localStorage.user_id= userId
             router.push({ path: 'Info'})
           }
           else{
